@@ -1,0 +1,33 @@
+BoxLayout:
+    orientation: 'vertical'
+    Upper_bar:
+        size_hint: (1, 0.1)
+        canvas.before:
+            Color:
+                rgba: 0, 1, 0, 1
+
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+    Label:
+        canvas.before:
+            Color:
+                rgba: 0, 0, 1, 1
+
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        text: 'Hello world.'
+
+<Upper_bar>:
+    BoxLayout:
+
+    Button:
+        size_hint: (0.3, 1)
+        text: 'Help'
+
+    Button:
+        size_hint: (0.3, 1)
+        text: 'about'
