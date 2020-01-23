@@ -1,8 +1,24 @@
 BoxLayout:
     orientation: 'vertical'
     Upper_bar:
+        canvas.before:
+            Color:
+                rgba: 0, 1, 0, 1
+
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
         Label:
             text: 'Hello world.'
 
     Label:
+        canvas.before:
+            Color:
+                rgba: 0, 0, 1, 1
+
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                
         text: 'Hello world.'
