@@ -34,6 +34,7 @@ BoxLayout:
     Button:
         size_hint: (0.3, 1)
         text: 'about'
+        on_press: Factory.AboutPop().open()
 
 <HelpPop@Popup>:
     size_hint: 0.5, 0.5
@@ -59,3 +60,23 @@ BoxLayout:
             height: '40dp'
 
 <AboutPop@Popup>:
+    size_hint: 0.5, 0.5
+    title: 'About'
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text:
+                '''Made by Jaehwa.
+                Version: 0.1
+                Merci.'''
+
+        Button:
+            text:
+                'Close'
+
+            on_press:
+                root.dismiss()
+
+            size_hint_y: None
+            height: '40dp'
