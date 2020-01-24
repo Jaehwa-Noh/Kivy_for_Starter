@@ -36,5 +36,26 @@ BoxLayout:
         text: 'about'
 
 <HelpPop@Popup>:
+    size_hint: 0.5, 0.5
+    title: 'Help'
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text:
+                '''This app can do
+                download an url
+                source such as
+                image or vedio.'''
+
+        Button:
+            text:
+                'Close'
+
+            on_press:
+                root.dismiss()
+
+            size_hint_y: None
+            height: '40dp'
 
 <AboutPop@Popup>:
