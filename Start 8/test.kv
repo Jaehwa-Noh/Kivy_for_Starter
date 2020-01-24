@@ -54,8 +54,16 @@ BoxLayout:
         Label:
             text: 'For progress bar'
 
-        Label:
-            text: 'For Button'
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                text: 'Location'
+
+            BoxLayout:
+                #Empty Space between two Buttons.
+
+            Button:
+                text: 'Save'
 
 <HelpPop@Popup>:
     size_hint: 0.5, 0.5
