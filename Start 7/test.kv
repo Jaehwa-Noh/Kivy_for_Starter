@@ -1,0 +1,82 @@
+#:import Factory kivy.factory.Factory
+
+BoxLayout:
+    orientation: 'vertical'
+    Upper_bar:
+        size_hint: (1, 0.1)
+        canvas.before:
+            Color:
+                rgba: 0, 1, 0, 1
+
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+    Label:
+        canvas.before:
+            Color:
+                rgba: 0, 0, 1, 1
+
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        text: 'Hello world.'
+
+<Upper_bar>:
+    BoxLayout:
+
+    Button:
+        size_hint: (0.3, 1)
+        text: 'Help'
+        on_press: Factory.HelpPop().open()
+
+    Button:
+        size_hint: (0.3, 1)
+        text: 'about'
+        on_press: Factory.AboutPop().open()
+
+<HelpPop@Popup>:
+    size_hint: 0.5, 0.5
+    title: 'Help'
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text:
+                '''This app can do
+                download an url
+                source such as
+                image or vedio.'''
+
+        Button:
+            text:
+                'Close'
+
+            on_press:
+                root.dismiss()
+
+            size_hint_y: None
+            height: '40dp'
+
+<AboutPop@Popup>:
+    size_hint: 0.5, 0.5
+    title: 'About'
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text:
+                '''Made by Jaehwa.
+                Version: 0.1
+                Merci.'''
+
+        Button:
+            text:
+                'Close'
+
+            on_press:
+                root.dismiss()
+
+            size_hint_y: None
+            height: '40dp'
