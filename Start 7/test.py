@@ -4,6 +4,9 @@ from kivy.uix.boxlayout import BoxLayout
 
 kivy.require('1.11.1')
 
+class ContentArea(BoxLayout):
+    pass
+
 class Upper_bar(BoxLayout):
     pass
 
