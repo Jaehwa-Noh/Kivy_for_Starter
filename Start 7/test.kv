@@ -36,6 +36,17 @@ BoxLayout:
         text: 'about'
         on_press: Factory.AboutPop().open()
 
+<ContentArea>:
+    orientation: 'vertical'
+
+    BoxLayout:
+        orientation: 'horizontal'
+        Label:
+            text: 'URL:'
+
+        TextInput:
+            hint_text: 'Input URL'
+
 <HelpPop@Popup>:
     size_hint: 0.5, 0.5
     title: 'Help'
