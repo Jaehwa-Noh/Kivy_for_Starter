@@ -1,0 +1,150 @@
+#:import Factory kivy.factory.Factory
+
+BoxLayout:
+    orientation: 'vertical'
+    Upper_bar:
+        size_hint: (1, 0.1)
+        canvas.before:
+            Color:
+                rgba: 0, 1, 0, 0.7
+
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+    ContentArea:
+        canvas.before:
+            Color:
+                rgba: 0.5, 0.5, 0.5, 1
+
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        text: 'Hello world.'
+
+
+<Upper_bar>:
+    BoxLayout:
+
+    Button:
+        size_hint: (0.3, 1)
+        text: 'Help'
+        on_press: Factory.HelpPop().open()
+
+    Button:
+        size_hint: (0.3, 1)
+        text: 'about'
+        on_press: Factory.AboutPop().open()
+
+
+<ContentArea>:
+    orientation: 'vertical'
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: (1, 0.3)
+        Label:
+            size_hint: (0.2, 1)
+            text: 'URL:'
+
+        TextInput:
+            hint_text: 'Input URL'
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: check
+            text: 'For progress bar'
+
+        BoxLayout:
+            padding: [90, 40]
+            size_hint: (1, 0.5)
+            orientation: 'horizontal'
+            Button:
+                size_hint: (0.5, 1)
+                text: 'Location'
+                on_press: Factory.LocationPop().open()
+
+            BoxLayout:
+                #Empty Space between two Buttons.
+
+            Button:
+                size_hint: (0.5, 1)
+                text: 'Save'
+
+
+<LocationPop@Popup>:
+    title: 'Choose your save path.'
+    auto_dismiss: False
+    size_hint: (0.9, 0.9)
+
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: 'vertical'
+        FileChooserIconView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: 'Here'
+                on_release:
+                    app.Save_path = filechooser.path
+                    root.dismiss()
+
+            Label:
+                #Empty Space between two Buttons.
+
+            Button:
+                text: 'Cancel'
+                on_release: root.dismiss()
+
+
+<HelpPop@Popup>:
+    size_hint: 0.5, 0.5
+    title: 'Help'
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text:
+                '''This app can do
+                download an url
+                source such as
+                image or vedio.'''
+
+        Button:
+            text:
+                'Close'
+
+            on_press:
+                root.dismiss()
+
+            size_hint_y: None
+            height: '40dp'
+
+
+<AboutPop@Popup>:
+    size_hint: 0.5, 0.5
+    title: 'About'
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text:
+                '''Made by Jaehwa.
+                Version: 0.1
+                Merci.'''
+
+        Button:
+            text:
+                'Close'
+
+            on_press:
+                root.dismiss()
+
+            size_hint_y: None
+            height: '40dp'
