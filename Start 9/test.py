@@ -19,6 +19,8 @@ class LocationPop(Popup):
         self.ids['filechooser'].path = os.getcwd()
 
 class TestApp(App):
+    Save_path = os.getcwd()
+
     pass
 
 if __name__ == '__main__':

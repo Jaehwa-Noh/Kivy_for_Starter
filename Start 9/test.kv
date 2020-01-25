@@ -84,6 +84,9 @@ BoxLayout:
             height: 30
             Button:
                 text: 'Here'
+                on_release:
+                    app.Save_path = filechooser.path
+                    root.dismiss()
 
             Label:
                 #Empty Space between two Buttons.
