@@ -8,6 +8,9 @@ kivy.require('1.11.1')
 import os
 import urllib.request
 
+image_list = ['png', 'gif', 'jbig', 'jbig2', 'jng', 'jpeg', 'mng', 'miff',
+'pgm', 'ppm', 'pgf', 'sgi', 'tiff', 'tif', 'jpg']
+
 class ContentArea(BoxLayout):
     pass
 
@@ -32,6 +35,13 @@ class TestApp(App):
             return 1
 
         else:
+            if self.From_Url.split(sep='/')[-1].split(sep='.')[-1].lower() not in image_list:
+                print('hi')
+                return 1
+
+            if os.path.isfile(self.Save_path + '/' + self.From_Url.split(sep='/')[-1]):
+                return 2
+
             try:
                 request = urllib.request.Request(url=self.From_Url, data=None, headers=self.headers)
                 web_handler = urllib.request.urlopen(request)
@@ -40,9 +50,6 @@ class TestApp(App):
             except:
                 return 1
 
-            if os.path.isfile(self.Save_path + '/' + self.From_Url.split(sep='/')[-1]):
-                return 2
-                
             try:
                 file_handler = open(self.Save_path + '/' + self.From_Url.split(sep='/')[-1], mode='wb')
                 file_handler.write(web_binary)
