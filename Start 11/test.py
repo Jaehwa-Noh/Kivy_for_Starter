@@ -7,6 +7,7 @@ kivy.require('1.11.1')
 
 import os
 import urllib.request
+import threading
 
 image_list = ['png', 'gif', 'jbig', 'jbig2', 'jng', 'jpeg', 'mng', 'miff',
 'pgm', 'ppm', 'pgf', 'sgi', 'tiff', 'tif', 'jpg']
@@ -56,29 +57,36 @@ class TestApp(App):
 
             file_path = self.Save_path + '/' + self.From_Url.split(sep='/')[-1]
             amout_file_size = len(web_binary)
-            self.Progress_bar(file_path, amout_file_size, web_binary)
-
+            thread = self.doing(self.Progress_bar, args=(file_path, amout_file_size, web_binary))
+            thread.start()
 
             return 0
 
 
     def Progress_bar(self, file_path, amout_size, data):
+        self.root.ids['ContentArea'].ids['Save_Button'].disabled=True
 
-        for repeat in range(0, amout_size, 5000):
+        for repeat in range(0, amout_size, 700):
             with open(file_path, mode='ba') as file_handler:
-                if repeat + 5000 < amout_size:
-                    file_handler.write(data[repeat:repeat+5000])
+                if repeat + 700 < amout_size:
+                    file_handler.write(data[repeat:repeat+700])
 
                 else:
                     file_handler.write(data[repeat:])
 
-            print(repeat)
             self.root.ids['ContentArea'].ids['progress'].value = \
             os.stat(file_path).st_size/amout_size * 100.
 
+        self.root.ids['ContentArea'].ids['Save_Button'].disabled=False
 
 
 
+
+
+    def doing(self, target, args):
+        thread = threading.Thread(target=target, args=args)
+
+        return thread
 
 
 
