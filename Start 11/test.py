@@ -22,6 +22,9 @@ class LocationPop(Popup):
         super(LocationPop, self).__init__(**kwargs)
         self.ids['filechooser'].path = os.getcwd()
 
+class RootWidget(BoxLayout):
+    pass
+
 class TestApp(App):
     Save_path = os.getcwd()
     From_Url = str()
@@ -29,6 +32,7 @@ class TestApp(App):
         AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.123 Safari/537.36'
 
     headers={'User-Agent':user_agent}
+    progress = 0
 
     def Save(self):
         if (self.From_Url is str()):
@@ -36,7 +40,6 @@ class TestApp(App):
 
         else:
             if self.From_Url.split(sep='/')[-1].split(sep='.')[-1].lower() not in image_list:
-                print('hi')
                 return 1
 
             if os.path.isfile(self.Save_path + '/' + self.From_Url.split(sep='/')[-1]):
@@ -50,14 +53,33 @@ class TestApp(App):
             except:
                 return 1
 
-            try:
-                file_handler = open(self.Save_path + '/' + self.From_Url.split(sep='/')[-1], mode='wb')
-                file_handler.write(web_binary)
-                file_handler.close()
-                return 0
 
-            except:
-                return 3
+            file_path = self.Save_path + '/' + self.From_Url.split(sep='/')[-1]
+            amout_file_size = len(web_binary)
+            self.Progress_bar(file_path, amout_file_size, web_binary)
+
+
+            return 0
+
+
+    def Progress_bar(self, file_path, amout_size, data):
+
+        for repeat in range(0, amout_size, 5000):
+            with open(file_path, mode='ba') as file_handler:
+                if repeat + 5000 < amout_size:
+                    file_handler.write(data[repeat:repeat+5000])
+
+                else:
+                    file_handler.write(data[repeat:])
+
+            print(repeat)
+            self.root.ids['ContentArea'].ids['progress'].value = \
+            os.stat(file_path).st_size/amout_size * 100.
+
+
+
+
+
 
 
 if __name__ == '__main__':

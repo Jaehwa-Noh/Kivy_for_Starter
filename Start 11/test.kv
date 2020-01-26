@@ -1,8 +1,9 @@
 #:import Factory kivy.factory.Factory
 
-BoxLayout:
+RootWidget:
     orientation: 'vertical'
     Upper_bar:
+        id: Upper_bar
         size_hint: (1, 0.1)
         canvas.before:
             Color:
@@ -13,6 +14,7 @@ BoxLayout:
                 size: self.size
 
     ContentArea:
+        id: ContentArea
         canvas.before:
             Color:
                 rgba: 0.5, 0.5, 0.5, 1
@@ -25,6 +27,7 @@ BoxLayout:
 
 
 <Upper_bar>:
+    id: Upper_bar
     BoxLayout:
 
     Button:
@@ -39,6 +42,7 @@ BoxLayout:
 
 
 <ContentArea>:
+    id: ContentArea
     orientation: 'vertical'
 
     BoxLayout:
@@ -70,8 +74,9 @@ BoxLayout:
                 pos_hint:
                     {'center_x': 0.5,
                     'center_y': 0.5}
+
                 value:
-                    100
+                    0
 
         BoxLayout:
             padding: [90, 40]
