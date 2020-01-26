@@ -76,13 +76,84 @@ BoxLayout:
                 text: 'Save'
                 on_release:
                     Status = app.Save()
-                    if Status == 1: print('URL error.')
-                    if Status == 2: print('Already file exist.')
-                    if Status == 3: print('Unknown Error. Contact me.')
+                    if Status == 1: Factory.URLErrorPop().open()
+                    if Status == 2: Factory.Already_exPop().open()
+                    if Status == 3: Factory.UnknownPop().open()
+
+
+<URLErrorPop@Popup>:
+    size_hint: 0.5, 0.5
+    title: 'URL Error'
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text:
+                '''
+                URL Error.
+                Check the URL.
+                '''
+
+        Button:
+            text:
+                'Ok'
+
+            on_press:
+                root.dismiss()
+
+            size_hint_y: None
+            height: '40dp'
+
+
+<Already_exPop@Popup>:
+    size_hint: 0.5, 0.5
+    title: 'Already Exists'
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text:
+                '''
+                File is already exist.
+                '''
+
+        Button:
+            text:
+                'Ok'
+
+            on_press:
+                root.dismiss()
+
+            size_hint_y: None
+            height: '40dp'
+
+
+<UnknownPop@Popup>:
+    size_hint: 0.5, 0.5
+    title: 'Unknown Error'
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text:
+                '''Unknown Error
+                Contact me.
+                shwoghk14@gmail.com
+                '''
+
+        Button:
+            text:
+                'Ok'
+
+            on_press:
+                root.dismiss()
+
+            size_hint_y: None
+            height: '40dp'
 
 
 <LocationPop@Popup>:
-    title: 'Choose your save path.'
+    title: 'Choose your save path'
     auto_dismiss: False
     size_hint: (0.9, 0.9)
 

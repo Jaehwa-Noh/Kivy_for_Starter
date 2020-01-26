@@ -42,7 +42,7 @@ class TestApp(App):
 
             if os.path.isfile(self.Save_path + '/' + self.From_Url.split(sep='/')[-1]):
                 return 2
-
+                
             try:
                 file_handler = open(self.Save_path + '/' + self.From_Url.split(sep='/')[-1], mode='wb')
                 file_handler.write(web_binary)
