@@ -36,7 +36,6 @@ class TestApp(App):
 
         else:
             if self.From_Url.split(sep='/')[-1].split(sep='.')[-1].lower() not in image_list:
-                print('hi')
                 return 1
 
             if os.path.isfile(self.Save_path + '/' + self.From_Url.split(sep='/')[-1]):
