@@ -55,9 +55,23 @@ BoxLayout:
 
     BoxLayout:
         orientation: 'vertical'
-        Label:
-            id: check
-            text: 'For progress bar'
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [0, 80]
+            Label:
+                size_hint_y: None
+                text: 'Progression: {}%'.format(int(progress.value))
+                height: '48dp'
+
+            ProgressBar:
+                id: progress
+                size_hint_x: 0.7
+                pos_hint:
+                    {'center_x': 0.5,
+                    'center_y': 0.5}
+                value:
+                    100
 
         BoxLayout:
             padding: [90, 40]
