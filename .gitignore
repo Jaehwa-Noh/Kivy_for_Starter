@@ -1,9 +1,5 @@
 # Pyinstaller 파일 제외.
 
-# 폴더 제외
-build/
-dist/
-
 
 # __pycache__ 제외
 */__pycache__/
