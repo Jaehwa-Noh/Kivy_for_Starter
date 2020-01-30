@@ -1,7 +1,8 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-block_cipher = None
+from kivy_deps import sdl2, glew
 
+block_cipher = None
 
 a = Analysis(['C:\\Users\\Jaehwa\\Github\\Kivy for Starter\\Start 11\\test.py'],
              pathex=['C:\\Users\\Jaehwa\\Github\\Kivy for Starter'],
@@ -27,10 +28,12 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=True )
-coll = COLLECT(exe,
+
+coll = COLLECT(exe, Tree('C:\\Users\\Jaehwa\\Github\\Kivy for Starter\\Start 11\\'),
                a.binaries,
                a.zipfiles,
                a.datas,
+               *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
                strip=False,
                upx=True,
                upx_exclude=[],
