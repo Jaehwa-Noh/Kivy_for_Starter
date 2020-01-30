@@ -1,0 +1,8 @@
+# Pyinstaller 파일 제외.
+
+# 폴더 제외
+build/
+dist/
+
+# spec 파일 제외
+*.spec
