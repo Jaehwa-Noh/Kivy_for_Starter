@@ -4,8 +4,6 @@
 build/
 dist/
 
-# spec 파일 제외
-*.spec
 
 # __pycache__ 제외
 */__pycache__/
