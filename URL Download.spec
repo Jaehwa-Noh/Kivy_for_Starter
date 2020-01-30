@@ -8,7 +8,7 @@ a = Analysis(['C:\\Users\\Jaehwa\\Github\\Kivy for Starter\\Start 11\\test.py'],
              pathex=['C:\\Users\\Jaehwa\\Github\\Kivy for Starter'],
              binaries=[],
              datas=[],
-             hiddenimports=[],
+             hiddenimports=[('win32timezone')],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
@@ -16,6 +16,7 @@ a = Analysis(['C:\\Users\\Jaehwa\\Github\\Kivy for Starter\\Start 11\\test.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
+
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
