@@ -5,10 +5,10 @@ from kivy_deps import sdl2, glew
 block_cipher = None
 
 a = Analysis(['C:\\Users\\Jaehwa\\Github\\Kivy for Starter\\Start 11\\test.py'],
-             pathex=['C:\\Users\\Jaehwa\\Github\\Kivy for Starter'],
+             pathex=['C:\\Users\\Jaehwa\\Github\\Kivy for Starter\\Start 13'],
              binaries=[],
              datas=[],
-             hiddenimports=[('win32timezone')],
+             hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
@@ -19,23 +19,19 @@ a = Analysis(['C:\\Users\\Jaehwa\\Github\\Kivy for Starter\\Start 11\\test.py'],
 
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
-exe = EXE(pyz,
+
+exe = EXE(pyz, Tree('C:\\Users\\Jaehwa\\Github\\Kivy for Starter\\Start 11\\'),
           a.scripts,
+          a.binaries,
+          a.zipfiles,
+          a.datas,
+          *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
           [],
-          exclude_binaries=True,
           name='URL Download',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
+          upx_exclude=[],
+          runtime_tmpdir=None,
           console=True )
-
-coll = COLLECT(exe, Tree('C:\\Users\\Jaehwa\\Github\\Kivy for Starter\\Start 11\\'),
-               a.binaries,
-               a.zipfiles,
-               a.datas,
-               *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
-               strip=False,
-               upx=True,
-               upx_exclude=[],
-               name='URL Download')
