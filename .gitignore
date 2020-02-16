@@ -3,3 +3,6 @@
 
 # __pycache__ 제외
 */__pycache__/
+
+# pyc 제외
+*.pyc
