@@ -35,6 +35,8 @@ class TestApp(App):
     headers={'User-Agent':user_agent}
     progress = 0
 
+    EX=str()
+
     def Save(self):
         if (self.From_Url is str()):
             return 1
@@ -51,8 +53,9 @@ class TestApp(App):
                 web_handler = urllib.request.urlopen(request)
                 web_binary = web_handler.read()
 
-            except:
-                return 1
+            except Exception as EX:
+                self.EX = str(EX)
+                return 3
 
 
             file_path = self.Save_path + '/' + self.From_Url.split(sep='/')[-1]
