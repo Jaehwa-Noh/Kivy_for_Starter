@@ -9,6 +9,12 @@ import os
 import urllib.request
 import threading
 
+import ssl
+
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
 image_list = ['png', 'gif', 'jbig', 'jbig2', 'jng', 'jpeg', 'mng', 'miff',
 'pgm', 'ppm', 'pgf', 'sgi', 'tiff', 'tif', 'jpg']
 
@@ -50,7 +56,7 @@ class TestApp(App):
 
             try:
                 request = urllib.request.Request(url=self.From_Url, data=None, headers=self.headers)
-                web_handler = urllib.request.urlopen(request)
+                web_handler = urllib.request.urlopen(request, context=ctx)
                 web_binary = web_handler.read()
 
             except Exception as EX:
