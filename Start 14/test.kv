@@ -195,7 +195,8 @@ RootWidget:
             Button:
                 text: 'Here'
                 on_release:
-                    app.Save_path = filechooser.path
+                    app.Save_path = filechooser.path + str('/')
+                    app.Change_Path()
                     root.dismiss()
 
             Label:

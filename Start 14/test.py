@@ -19,8 +19,56 @@ ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
+
+from jnius import autoclass, cast
+
+PythonActivity = autoclass('org.kivy.android.PythonActivity')
+currentActivity = cast('android.app.Activity', PythonActivity.mActivity)
+Context = cast('android.content.Context', PythonActivity.getApplicationContext())
+
+
 image_list = ['png', 'gif', 'jbig', 'jbig2', 'jng', 'jpeg', 'mng', 'miff',
 'pgm', 'ppm', 'pgf', 'sgi', 'tiff', 'tif', 'jpg']
+
+class Set_DCIM_Path():
+
+    def GET(self):
+        DCIM_Image_path = str()
+
+        where_to_find = Context.getExternalFilesDir(None).toString()
+        split_where_to_find = where_to_find.split(sep='/')
+        for_list_dir = str()
+
+        for repeat in range(len(split_where_to_find)):
+            if repeat == 0:
+                for_list_dir = '/'
+            else:
+                for_list_dir += split_where_to_find[repeat] + '/'
+
+            try:
+                result_list_dir = os.listdir(for_list_dir)
+                dcim_index = result_list_dir.index('DCIM')
+                dcim = result_list_dir[dcim_index]
+                DCIM_Image_path = str(for_list_dir)+str(dcim)+'/'
+                break
+
+            except Exception as EX:
+                print('EX:', EX)
+
+        if os.path.isdir(DCIM_Image_path + 'URL Download'):
+            return DCIM_Image_path + 'URL Download/'
+
+        else:
+            try:
+                os.mkdir(DCIM_Image_path + 'URL Download/')
+                DCIM_Image_path = DCIM_Image_path + 'URL Download/'
+
+            except:
+                pass
+
+            return DCIM_Image_path
+
+Image_path = Set_DCIM_Path().GET()
 
 class ContentArea(BoxLayout):
     pass
@@ -31,13 +79,15 @@ class Upper_bar(BoxLayout):
 class LocationPop(Popup):
     def __init__(self, **kwargs):
         super(LocationPop, self).__init__(**kwargs)
-        self.ids['filechooser'].path = os.getcwd()
+        self.ids['filechooser'].path = Image_path
 
 class RootWidget(BoxLayout):
     pass
 
 class TestApp(App):
-    Save_path = os.getcwd()
+
+    Save_path = Image_path
+
     From_Url = str()
     user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
         AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.123 Safari/537.36'
@@ -46,6 +96,11 @@ class TestApp(App):
     progress = 0
 
     EX=str()
+
+    def Change_Path(self):
+        global Image_path
+        Image_path = self.Save_path
+
 
     def Save(self):
         if (self.From_Url is str()):
