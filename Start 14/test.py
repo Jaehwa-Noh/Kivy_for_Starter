@@ -9,6 +9,10 @@ import os
 import urllib.request
 import threading
 
+from android.permissions import request_permissions, Permission
+request_permissions([Permission.WRITE_EXTERNAL_STORAGE])
+request_permissions([Permission.READ_EXTERNAL_STORAGE])
+
 import ssl
 
 ctx = ssl.create_default_context()
@@ -87,8 +91,6 @@ class TestApp(App):
             os.stat(file_path).st_size/amout_size * 100.
 
         self.root.ids['ContentArea'].ids['Save_Button'].disabled=False
-
-
 
 
 
