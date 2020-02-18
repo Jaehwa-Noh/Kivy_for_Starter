@@ -20,11 +20,17 @@ ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 
-from jnius import autoclass, cast
+from jnius import autoclass, cast,\
+                PythonJavaClass, java_method
 
 PythonActivity = autoclass('org.kivy.android.PythonActivity')
 currentActivity = cast('android.app.Activity', PythonActivity.mActivity)
 Context = cast('android.content.Context', PythonActivity.getApplicationContext())
+
+Intent = autoclass('android.content.Intent')
+
+Connection = autoclass('android.media.MediaScannerConnection')
+
 
 
 image_list = ['png', 'gif', 'jbig', 'jbig2', 'jng', 'jpeg', 'mng', 'miff',
@@ -69,6 +75,36 @@ class Set_DCIM_Path():
             return DCIM_Image_path
 
 Image_path = Set_DCIM_Path().GET()
+
+
+class Check_Path():
+    def check(self):
+        update_image_path = Image_path
+
+        return update_image_path
+
+class PythonMediaClient(PythonJavaClass):
+    __javainterfaces__ = ['android/media/MediaScannerConnection$MediaScannerConnectionClient']
+
+    @java_method('()V')
+    def onMediaScannerConnected(self):
+        scan_image_path = Check_Path().check()
+        scan_file_list = os.listdir(scan_image_path)
+
+        for image_name in scan_file_list:
+            try:
+                connection.scanFile(scan_image_path + image_name, None)
+            except:
+                pass
+
+    @java_method('(Ljava/lang/String;Landroid/net/Uri;)V')
+    def onScanCompleted(self, path, uri):
+        print('SCAN IS ENDED:', path, uri)
+
+
+Client = PythonMediaClient()
+connection = Connection(Context, Client)
+
 
 class ContentArea(BoxLayout):
     pass
@@ -146,7 +182,8 @@ class TestApp(App):
             os.stat(file_path).st_size/amout_size * 100.
 
         self.root.ids['ContentArea'].ids['Save_Button'].disabled=False
-
+        connection.connect()
+        connection.disconnect()
 
 
     def doing(self, target, args):
