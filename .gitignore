@@ -7,3 +7,6 @@
 # pyc 제외
 *.pyc
 */*.pyc
+
+# Folder 제외
+Start 16/
